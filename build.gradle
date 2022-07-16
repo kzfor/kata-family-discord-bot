@@ -1,0 +1,41 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'family.kata.discord'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-releases/")
+    }
+}
+
+dependencies {
+    // Spring
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-logging:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.1'
+
+    // Discord
+    implementation 'net.dv8tion:JDA:5.0.0-alpha.13'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+bootJar {
+    launchScript()
+}
