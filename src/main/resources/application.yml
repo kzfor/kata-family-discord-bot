@@ -1,8 +1,11 @@
 server:
   port: 8888
 
+bot:
+  token: SECRET
+
 spring:
   application:
     name: "myapp"
   config:
-    import: "optional:file:/home/discord/discord-bot/target/application.yml"
+    import: "optional:file:/home/discord/discord-bot/target/application-prod.yml"
