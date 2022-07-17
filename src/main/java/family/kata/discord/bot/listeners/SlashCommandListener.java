@@ -22,7 +22,9 @@ public class SlashCommandListener extends ListenerAdapter {
             = LoggerFactory.getLogger(this.getClass().getName());
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        logger.info("Got slash command \"{}\" in channel {}", event.getName(), event.getGuild().getName());
+        logger.info("Got slash command \"{}\" in channel {}",
+                event.getName(),
+                event.getGuild());
         botCommands.forEach((it) -> {
             if (it.getName().equals(event.getName())) {
                 it.onCommand(event);

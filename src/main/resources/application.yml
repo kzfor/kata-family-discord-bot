@@ -7,5 +7,12 @@ bot:
 spring:
   application:
     name: "myapp"
+  profiles:
+    active: dev
   config:
     import: "optional:file:/home/discord/discord-bot/target/application-prod.yml"
+
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    name: discord-bot.log
