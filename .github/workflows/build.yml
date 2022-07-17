@@ -21,26 +21,3 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build]
-
-    steps:
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SRV_HOST }}
-          username: ${{ secrets.SRV_USERNAME }}
-          password: ${{ secrets.SRV_PASSWORD }}
-          port: ${{ secrets.SRV_PORT }}
-          script: |
-            cd ~/discord-bot
-            rm -rf kata-family-discord-bot
-            git clone https://github.com/kzfor/kata-family-discord-bot.git --branch ${{ github.ref_name }}
-            cd kata-family-discord-bot
-            chmod +x ./gradlew
-            ./gradlew build
-            shopt -s extglob
-            mv build/libs/bot-!(*plain*).jar ../target/discord-bot.jar
-            chmod +x ../target/discord-bot.jar
-            sudo systemctl restart discord-bot
