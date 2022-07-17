@@ -28,7 +28,7 @@ jobs:
     needs: [ build ]
 
     steps:
-      - name: executing remote ssh commands using password
+      - name: Executing deployment commands
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SRV_HOST }}
@@ -46,3 +46,8 @@ jobs:
             mv build/libs/bot-!(*plain*).jar ../target/discord-bot.jar
             chmod +x ../target/discord-bot.jar
             sudo systemctl restart discord-bot
+      - name: Healthcheck
+        uses: jtalk/url-health-check-action@v2
+        with:
+          # Check the following URLs one by one sequentially
+          url: http://62.109.21.7:8888/actuator/health
