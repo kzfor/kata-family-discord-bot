@@ -40,6 +40,9 @@ public class CalcBotCommand extends AbstractBotCommand {
         } catch (ConverterException | InvalidInputException exception) {
             replyMessage = exception.getMessage();
         }
+        if (replyMessage.equals("300")) {
+            replyMessage = ":tractor:";
+        }
         event.reply(replyMessage).queue();
     }
 }
